@@ -1,107 +1,59 @@
-# Gitpod / Ona Configuration
-# For 200 workshop attendees - Zero Install Setup
-#
-# IMPORTANT: 'init' runs during PREBUILD (cached)
-#            'command' runs at STARTUP (every time)
+# Gitpod Configuration for Geekout Vegas 2026
+# Prebuild handles all dependencies - this just configures ports
+
+image: gitpod/workspace-full:latest
+
+# Prebuild: runs once when you push, cached for all attendees
+tasks:
+  - name: Ready
+    init: |
+      npm install
+      npx playwright install chromium
+      npm install -g @anthropic-ai/claude-code
+    command: |
+      echo ""
+      echo "=========================================="
+      echo "  GEEKOUT VEGAS 2026 - Ready to Code!"
+      echo "=========================================="
+      echo ""
+      echo "1. export ANTHROPIC_API_KEY=your_key"
+      echo "2. export GEMINI_API_KEY=your_key"
+      echo "3. Type: claude"
+      echo ""
+
+# PORTS: When your app listens on these ports, they auto-forward to PUBLIC URLs
+ports:
+  - port: 3000
+    onOpen: open-preview
+    visibility: public
+  - port: 3001
+    onOpen: notify
+    visibility: public
+  - port: 4000
+    onOpen: notify
+    visibility: public
+  - port: 5000
+    onOpen: notify
+    visibility: public
+  - port: 5173
+    onOpen: open-preview
+    visibility: public
+  - port: 8000
+    onOpen: notify
+    visibility: public
+  - port: 8080
+    onOpen: open-preview
+    visibility: public
+  - port: 8081
+    onOpen: notify
+    visibility: public
 
 github:
   prebuilds:
     main: true
     branches: true
     pullRequests: true
-    pullRequestsFromForks: false
     addCheck: true
-    addComment: false
-    addBadge: true
-
-# Use Gitpod's full workspace image (Node 20 + Python + Go + etc)
-image: gitpod/workspace-full:latest
-
-tasks:
-  - name: Welcome Page
-    init: |
-      echo "Installing dependencies..."
-      npm install
-      echo "Installing Playwright..."
-      npx playwright install chromium
-      echo "Installing Claude Code..."
-      npm install -g @anthropic-ai/claude-code
-      echo "Prebuild complete!"
-    command: |
-      echo "Starting welcome server..."
-      npx http-server -p 3000 -c-1 --silent &
-      sleep 2
-      gp preview $(gp url 3000)/welcome.html
-      echo ""
-      echo "=============================================="
-      echo "  WELCOME TO GEEKOUT VEGAS 2026!"
-      echo "  Check the BROWSER PREVIEW for instructions"
-      echo "=============================================="
-      echo ""
-      echo "Quick Start:"
-      echo "  1. export ANTHROPIC_API_KEY=your_key"
-      echo "  2. export GEMINI_API_KEY=your_key"
-      echo "  3. Type: claude"
-      echo ""
-
-# All ports public by default - no manual opening needed
-ports:
-  - port: 3000
-    onOpen: open-preview
-    visibility: public
-    name: Welcome Page
-  - port: 3001
-    onOpen: notify
-    visibility: public
-    name: Dev Server Alt
-  - port: 4000
-    onOpen: notify
-    visibility: public
-    name: API Server
-  - port: 5000
-    onOpen: notify
-    visibility: public
-    name: Flask/Backend
-  - port: 5173
-    onOpen: open-preview
-    visibility: public
-    name: Vite Dev Server
-  - port: 5174
-    onOpen: notify
-    visibility: public
-    name: Vite Alt
-  - port: 8000
-    onOpen: notify
-    visibility: public
-    name: Python Server
-  - port: 8080
-    onOpen: open-preview
-    visibility: public
-    name: HTTP Server
-  - port: 8081
-    onOpen: notify
-    visibility: public
-    name: HTTP Alt
-  - port: 9000
-    onOpen: notify
-    visibility: public
-    name: PHP/Other
-  - port: 3333
-    onOpen: notify
-    visibility: public
-    name: Custom Server
-  - port: 4200
-    onOpen: notify
-    visibility: public
-    name: Angular
-  - port: 4321
-    onOpen: notify
-    visibility: public
-    name: Astro
-  - port: 1234
-    onOpen: notify
-    visibility: public
-    name: Parcel
 
 vscode:
   extensions: []
