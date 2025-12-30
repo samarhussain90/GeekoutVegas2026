@@ -18,7 +18,7 @@ github:
 image: gitpod/workspace-full:latest
 
 tasks:
-  - name: Workshop Environment
+  - name: Welcome
     # INIT: Runs during prebuild - results are cached!
     init: |
       echo "🔧 Installing dependencies (this is cached in prebuild)..."
@@ -29,10 +29,12 @@ tasks:
       npm install -g @anthropic-ai/claude-code
       echo "✅ Prebuild complete!"
 
-    # COMMAND: Runs every time workspace starts
+    # COMMAND: Runs every time workspace starts - shows welcome screen
     command: |
       chmod +x welcome.sh
+      clear
       ./welcome.sh
+      exec bash
 
 ports:
   - port: 3000
@@ -40,6 +42,7 @@ ports:
     visibility: public
     name: Landing Page Preview
 
+# Don't auto-install Claude extension - it hijacks the UI
+# Workshop uses 'claude' CLI instead
 vscode:
-  extensions:
-    - anthropic.claude-dev
+  extensions: []
