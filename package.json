@@ -9,7 +9,9 @@
     "dev": "nodemon --exec ts-node cloner.ts",
     "serve": "npx http-server cloned-pages -p 3000 -c-1",
     "welcome": "npx http-server -p 3000 -c-1",
-    "check": "./welcome.sh"
+    "check": "./welcome.sh",
+    "prebuild": "npx ts-node scripts/prebuild-warmup.ts",
+    "demo": "npx http-server cloned-pages -p 3000 -o demo.html"
   },
   "keywords": ["workshop", "landing-page", "cloner", "gemini", "claude-code"],
   "author": "Samar Hussain",

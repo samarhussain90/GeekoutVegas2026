@@ -16,9 +16,16 @@
         "workbench.startupEditor": "none",
         "terminal.integrated.tabs.enabled": true,
         "remote.autoForwardPorts": true,
-        "remote.autoForwardPortsSource": "process"
+        "remote.autoForwardPortsSource": "process",
+        "workbench.iconTheme": "material-icon-theme"
       },
-      "extensions": []
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-rename-tag",
+        "bradlc.vscode-tailwindcss",
+        "christian-kohler.path-intellisense",
+        "pkief.material-icon-theme"
+      ]
     }
   },
 
@@ -59,6 +66,6 @@
     "onAutoForward": "notify"
   },
 
-  "postCreateCommand": "npm install && npx playwright install chromium && mkdir -p ~/.claude/plugins/marketplaces && git clone https://github.com/anthropics/claude-code-plugins.git ~/.claude/plugins/marketplaces/claude-code-plugins || true",
+  "postCreateCommand": "npm install && npx playwright install chromium && npm run prebuild && mkdir -p ~/.claude/plugins/marketplaces && git clone https://github.com/anthropics/claude-code-plugins.git ~/.claude/plugins/marketplaces/claude-code-plugins || true",
   "postStartCommand": "echo '✅ Ready! Type claude to start.'"
 }
